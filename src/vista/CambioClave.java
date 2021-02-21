@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.Usuarios;
-import static vista.Cambio_Contraseña.con;
+
 
 
 /**
@@ -37,49 +37,57 @@ public class CambioClave extends javax.swing.JFrame {
  //         setLocalRelativeTo(null);
        jPasswordNew.requestFocus();
     }
-//    
-//     void Cambio_Contraseña(){
-//        String clavevacia=jPasswordNew.getText();
-//        String confivacia=jpassconfirmclave.getText();
-//        
-//         if(("".equals(clavevacia)) || ("".equals(confivacia))){
-//            JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
-//            jPasswordNew.requestFocus();
-//        
-//    }else {  
-//             if (jPasswordNew.getText().equals(jpassconfirmclave.getText())){                
-//        int resp=JOptionPane.showConfirmDialog(null, "Confirmar Contraseña","pregunta",0);
-//        
-//        if(resp==0){           
-//            String cont=jPasswordNew.getText();      
-//         try {
-//             
-//             
-//         //   Connection cn= DriverManager.getConnection("jdbc:mysql://localhost/usuarios","root","");
-//             String sql= "UPDATE usuarios set pass_usu=? where usuario=?";
-//           
-//              PreparedStatement pst= con.prepareCall(sql);
-//          
-//            pst.setString(1, cont);
-//            pst.setString(2, Recuperacio.ced1 );
-//            
-//            int a = pst.executeUpdate();
-//            JOptionPane.showMessageDialog(null,"Contraseña nueva aceptada");
-//        } catch( SQLException  | HeadlessException e ){
-//            }  
-//        
-//            dispose();
-//            
-//             Inicio  a = new Inicio();
-//                a.setVisible(true);
-//            
-//    } }  else {
-//            
-//            JOptionPane.showMessageDialog(null, " Las contrañas no coinciden");
-//            
-//            
-//            }
-//}}
+
+    void Cambio_Contraseña(){
+        String clavevacia=jPasswordNew.getText();
+        String confivacia=jpassconfirmclave.getText();
+        
+         if(("".equals(clavevacia)) || ("".equals(confivacia))){
+             
+         
+            JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
+            jPasswordNew.requestFocus();
+        
+    }else {
+    
+             if (jPasswordNew.getText().equals(jpassconfirmclave.getText())){
+        
+                 
+        int resp=JOptionPane.showConfirmDialog(null, "Confirmar Contraseña","pregunta",0);
+        
+        if(resp==0){
+            
+            String cont=jPasswordNew.getText();
+            
+            
+         try {
+          //   Connection cn= DriverManager.getConnection("jdbc:mysql://localhost/login_usu","root","");
+             String sql= "UPDATE usuarios set pass_usu=? where usuario=?";
+           
+             
+            PreparedStatement pst= con.prepareStatement(sql);
+            
+            pst.setString(1, cont);
+            pst.setString(2, Recuperacio.ced1 );
+            
+  
+            int a = pst.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Contraseña nueva aceptada");
+        } catch( SQLException  | HeadlessException e ){
+            }  
+        
+            dispose();
+            
+             Inicio  a = new Inicio();
+                a.setVisible(true);
+            
+    } }  else {
+            
+            JOptionPane.showMessageDialog(null, " Las contrañas no coinciden");
+            
+            
+            }
+}}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,32 +132,37 @@ public class CambioClave extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(8, 8, 8)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPasswordNew, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                                .addComponent(jpassconfirmclave))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnLogin)
-                            .addComponent(Label_status))))
-                .addContainerGap(167, Short.MAX_VALUE))
+                        .addGap(86, 86, 86)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(Label_status))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(8, 8, 8)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPasswordNew, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jpassconfirmclave, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(btnLogin)))))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -159,7 +172,7 @@ public class CambioClave extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(26, 26, 26)
                 .addComponent(btnLogin)
-                .addGap(10, 10, 10)
+                .addGap(37, 37, 37)
                 .addComponent(Label_status)
                 .addGap(65, 65, 65))
         );
@@ -172,6 +185,9 @@ public class CambioClave extends javax.swing.JFrame {
 
 // *************************************MODIFICAR/ACEPTAR************************************************************************
 //        Cambio_Contraseña(); 
+
+
+
 //  try {
 //            String ID = txtid.getText().trim();
 //
@@ -241,14 +257,7 @@ int n = pst.executeUpdate();//valida si se guardaron los datos;
             
             JOptionPane.showMessageDialog(null, " Las contrañas no coinciden");
         
-        
-        
-        
-        
-        
-        
-        
-        
+
         
 //         try {
 //             
