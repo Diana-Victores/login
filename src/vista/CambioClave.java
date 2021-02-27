@@ -15,6 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Conexion;
+import modelo.Hash;
+import modelo.LOGINDM;
+import modelo.LoginDAO;
+import modelo.SqlUsuarios;
 import modelo.Usuarios;
 
 
@@ -24,70 +28,67 @@ import modelo.Usuarios;
  * @author Diana
  */
 public class CambioClave extends javax.swing.JFrame {
-
-    static Connection con=null;
-    int x,y;
-    private String pass;
-    private String Usuarios;
+   
+    static Connection con = null ;
+//    private static String ced1;
+//        
+//    int x,y;
+//    private String pass;
+//    private String Usuarios;
     /**
      * Creates new form CambioClave
      */
     public CambioClave() {
         initComponents();
- //         setLocalRelativeTo(null);
-       jPasswordNew.requestFocus();
+//     setLocalRelativeTo(null);
+    //   cod.requestFocus();
     }
 
-    void Cambio_Contraseña(){
-        String clavevacia=jPasswordNew.getText();
-        String confivacia=jpassconfirmclave.getText();
-        
-         if(("".equals(clavevacia)) || ("".equals(confivacia))){
-             
-         
-            JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
-            jPasswordNew.requestFocus();
-        
-    }else {
     
-             if (jPasswordNew.getText().equals(jpassconfirmclave.getText())){
-        
-                 
-        int resp=JOptionPane.showConfirmDialog(null, "Confirmar Contraseña","pregunta",0);
-        
-        if(resp==0){
-            
-            String cont=jPasswordNew.getText();
-            
-            
-         try {
-          //   Connection cn= DriverManager.getConnection("jdbc:mysql://localhost/login_usu","root","");
-             String sql= "UPDATE usuarios set pass_usu=? where usuario=?";
-           
-             
-            PreparedStatement pst= con.prepareStatement(sql);
-            
-            pst.setString(1, cont);
-            pst.setString(2, Recuperacio.ced1 );
-            
-  
-            int a = pst.executeUpdate();
-            JOptionPane.showMessageDialog(null,"Contraseña nueva aceptada");
-        } catch( SQLException  | HeadlessException e ){
-            }  
-        
-            dispose();
-            
-             Inicio  a = new Inicio();
-                a.setVisible(true);
-            
-    } }  else {
-            
-            JOptionPane.showMessageDialog(null, " Las contrañas no coinciden");
-            
-            
-            }
-}}
+    //*****************************************************************************************************
+//             void Cambio_Contraseña() throws SQLException
+//             {
+//              String clavevacia=jPasswordNew.getText();
+//              String confavacia=jpassconfirmclave.getText();
+//              
+//              if (("".equals(clavevacia)|| ("".equals(confavacia))))
+//              {
+//                  JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
+//                  jPasswordNew.requestFocus();
+//                  
+//              }else{
+//                  if(jPasswordNew.getText().equals(jpassconfirmclave.getText()))
+//                  {
+//                      int resp = JOptionPane.showConfirmDialog(null, "¿Deseas Guardar la Contraseña?");
+//                      
+//                      if (resp==0)
+//                      {
+//                          String cont = jPasswordNew.getText();
+//                          
+//                          try{
+//                              //          update actualizar  set colocar     where donde
+//                              String sql = "UPDATE usuarios SET password=?  WHERE id=? ";
+//                              PreparedStatement pst = con.prepareCall(sql);
+//  
+//                              pst.setString(1, cont);
+//                              pst.setString(2, CambioClave.ced1);
+//                              
+//                              int a = pst.executeUpdate();
+//                              JOptionPane.showMessageDialog(null, "Contraseña nueva guardada");    
+//                              
+//                              }catch(Exception e){ 
+//                              }
+//
+//                                  dispose ();
+//                              login a = new login();
+//                              a.setVisible(true);
+//                       
+//                                }} else {
+//                                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");                            
+//                                 } 
+//              } 
+//}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,13 +98,12 @@ public class CambioClave extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPasswordNew = new javax.swing.JPasswordField();
+        cod = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Label_status = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jpassconfirmclave = new javax.swing.JPasswordField();
+        contra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,7 +124,7 @@ public class CambioClave extends javax.swing.JFrame {
 
         jLabel2.setText("Nueva Contraseña");
 
-        jLabel3.setText("Confirmar Contraseña");
+        jLabel3.setText("jLabel3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,160 +136,98 @@ public class CambioClave extends javax.swing.JFrame {
                         .addGap(86, 86, 86)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(Label_status))
+                        .addGap(146, 146, 146)
+                        .addComponent(btnLogin))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(8, 8, 8)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPasswordNew, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jpassconfirmclave, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(126, 126, 126)
-                                .addComponent(btnLogin)))))
-                .addContainerGap(133, Short.MAX_VALUE))
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cod, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(contra))))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jpassconfirmclave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(26, 26, 26)
+                    .addComponent(jLabel3)
+                    .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(btnLogin)
-                .addGap(37, 37, 37)
-                .addComponent(Label_status)
-                .addGap(65, 65, 65))
+                .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @SuppressWarnings("deprecation")
+   
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-// *************************************MODIFICAR/ACEPTAR************************************************************************
-//        Cambio_Contraseña(); 
-
-
-
-//  try {
-//            String ID = txtid.getText().trim();
+    
+        
+                  LoginDAO modulosDAO = new LoginDAO();
+                LOGINDM moduloActualizar = new LOGINDM();
+                moduloActualizar.setCodigo(cod.getText());
+                moduloActualizar.setContra(contra.getText());
+                modulosDAO.update(moduloActualizar);
+ 
+        //***********************************************************************************************************
+        
+        
+        
+      //                   try {
+//            String ID = jPasswordNew.getText().trim();
 //
-//            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/Usuarios", "root", "");
-//            PreparedStatement pst = cn.prepareStatement("update usuarios set  password = ? where usuario = " + ID);
+//            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/usuarios", "root", "");
+//            PreparedStatement pst = cn.prepareStatement("update usuarios set password = ? where usaurio = " + ID);
 //
 //            pst.setString(1, jPasswordNew.getText().trim());
-//           
-//            pst.executeUpdate();
-//
+//           // pst.setString(2, jpassconfirmclave.getText().trim()); 
 //            Label_status.setText("Modificación exitosa.");
-//
+//             dispose ();
+//             login a = new login();
+//             a.setVisible(true);
 //        } catch (Exception e) {
+//            
 //        }
-  
- //********************************************************************************************************************************
-  
-String sSQL = "";
-Conexion mysql = new Conexion();
-Connection cn = mysql.getConexion();
-String  pas,pasn;
-
-pas= jPasswordNew.getText();
-pasn=jpassconfirmclave.getText();
- 
-sSQL = "UPDATE usuarios " +"SET password = ?"  +"WHERE id = "+ Usuarios;
-/** id_actualizar es una variable de clase y se implementa en el metodo BuscarEditar(String id) donde toma el valor del parametro de dicho metodo*/
-String mensaje = "Los contaseña se ha Cambiado de Manera Satisfactoria...";
-
-try{
-        String clavevacia=jPasswordNew.getText();
-        String confivacia=jpassconfirmclave.getText();
-         if(("".equals(clavevacia)) || ("".equals(confivacia))){
-            JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
-            jPasswordNew.requestFocus();
-    }else {
-             if (jPasswordNew.getText().equals(jpassconfirmclave.getText())){
-      
-        int resp=JOptionPane.showConfirmDialog(null, "Confirmar Contraseña","pregunta",0);
-        
-        if(resp==0){
-            
-            String cont=jPasswordNew.getText();
-            
-//    PreparedStatement pst= con.prepareCall(sSQL);
-PreparedStatement pst = cn.prepareStatement(sSQL);// con esta sentencia se insertan los datos en la base de datos
-pst.setString(1, cont);
- pst.setString(2, Recuperacio.ced1 );
-
-int n = pst.executeUpdate();//valida si se guardaron los datos; 
-{
-}
-}
-      }
-             }
-         }catch (SQLException ex){
-    
-         Logger.getLogger(CambioClave.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(null, ex);
-
-      dispose();
-            
-             Inicio  a = new Inicio();
-                a.setVisible(true);
-            
-
-            
-            JOptionPane.showMessageDialog(null, " Las contrañas no coinciden");
-        
-
-        
-//         try {
-//             
-//             
-//         //   Connection cn= DriverManager.getConnection("jdbc:mysql://localhost/usuarios","root","");
-//             String sql= "UPDATE usuarios set pass_usu=? where usuario=?";
-//           
-//              PreparedStatement pst= con.prepareCall(sql);
-//          
-//            pst.setString(1, cont);
-//            pst.setString(2, Recuperacio.ced1 );
+//                SqlUsuarios modSql = new SqlUsuarios();
+//                Usuarios mod = new Usuarios();
+//              //   String  ced_trans = jPasswordNew.getText();
+//   
+//              String clavevacia=jPasswordNew.getText();
+//              String confavacia=jpassconfirmclave.getText();
+//              
+//              if (("".equals(clavevacia)|| ("".equals(confavacia)))){
 //            
-//            int a = pst.executeUpdate();
-//            JOptionPane.showMessageDialog(null,"Contraseña nueva aceptada");
-//        } catch( SQLException  | HeadlessException e ){
-//            }  
-//        
-//            dispose();
+//            String nuevoPass = Hash.sha1(pass);
 //            
-//             Inicio  a = new Inicio();
-//                a.setVisible(true);
+//            mod.setUsuario(jPasswordNew.getText());
+//            mod.setUsuario(jpassconfirmclave.getText());
+//            mod.setPassword(nuevoPass);
 //            
-//    } }  else {
-//            
-//            JOptionPane.showMessageDialog(null, " Las contrañas no coinciden");
-//            
-//            
-         //   }
-  //  catch (SQLException ex) {
-           
-        }
-
+//            if (modSql.login(mod)) {
+//                login.frmLog = null;
+//                this.dispose();
+//                
+//               login  frmentrada = new login();
+//                frmentrada.setVisible(true);
+//                
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Datos incorrectos");
+//                limpiar();
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Debe ingresar sus datos");
+//        }
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -297,7 +235,11 @@ int n = pst.executeUpdate();//valida si se guardaron los datos;
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginMouseClicked
 
+   private void limpiar() {
+        cod.setText("");
+        //jpassconfirmclave.setText("");
 
+    }
     /**
      * @param args the command line arguments
      */
@@ -334,13 +276,14 @@ int n = pst.executeUpdate();//valida si se guardaron los datos;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Label_status;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JPasswordField cod;
+    private javax.swing.JPasswordField contra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordNew;
-    private javax.swing.JPasswordField jpassconfirmclave;
     // End of variables declaration//GEN-END:variables
+
+   
 
   }

@@ -29,7 +29,7 @@ public class Inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnRegistro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnRegistro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnRegistro.setText("Registro");
         btnRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -37,7 +37,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        btnLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +54,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(btnRegistro)
                 .addGap(75, 75, 75)
                 .addComponent(btnLogin)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,7 +63,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistro)
                     .addComponent(btnLogin))
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
 
         pack();

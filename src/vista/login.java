@@ -5,12 +5,14 @@
  */
 package vista;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Hash;
 import javax.swing.JOptionPane;
 import modelo.SqlUsuarios;
 import modelo.Usuarios;
 import vista.Recuperacio;
-import static vista.Recuperacio.frmReg;
 
 /**
  *
@@ -18,6 +20,11 @@ import static vista.Recuperacio.frmReg;
  */
 public class login extends javax.swing.JFrame {
 
+    static Object frmLog;
+      
+         static void setText(txtPassword password) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     /**
      * Creates new form login
      */
@@ -139,21 +146,25 @@ public class login extends javax.swing.JFrame {
         
         if (!txtUsuario.getText().equals("") && !pass.equals("")) {
             
-            String nuevoPass = Hash.sha1(pass);
-            
-            mod.setUsuario(txtUsuario.getText());
-            mod.setPassword(nuevoPass);
-            
-            if (modSql.login(mod)) {
-                Inicio.frmLog = null;
-                this.dispose();
+            try {
+                String nuevoPass = Hash.sha1(pass);
                 
-               menu  frmMenu = new menu();
-                frmMenu.setVisible(true);
+                mod.setUsuario(txtUsuario.getText());
+                mod.setPassword(nuevoPass);
                 
-            } else {
-                JOptionPane.showMessageDialog(null, "Datos incorrectos");
-                limpiar();
+                if (modSql.login(mod)) {
+                    Inicio.frmLog = null;
+                    this.dispose();
+                    
+                    menu  frmMenu = new menu();
+                    frmMenu.setVisible(true);
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "Datos incorrectos");
+                    limpiar();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe ingresar sus datos");
@@ -218,4 +229,10 @@ public class login extends javax.swing.JFrame {
     public javax.swing.JPasswordField txtPassword;
     public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private static class txtPassword {
+
+        public txtPassword() {
+        }
+    }
 }

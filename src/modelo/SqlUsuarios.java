@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 
 public class SqlUsuarios extends Conexion {
 
-    public boolean registrar(Usuarios usr) {
+    public boolean registrar(Usuarios usr) throws SQLException {
         PreparedStatement ps = null;
-        Connection con = getConexion();
+        Connection con = getConnection();
 
         String sql = "INSERT INTO usuarios (usuario, password, nombre, correo, respuesta ,idTipo) VALUES(?,?,?,?,?,?)";
 
@@ -38,12 +38,12 @@ public class SqlUsuarios extends Conexion {
         }
     }
 
-    public boolean login(Usuarios usr) {
+    public boolean login(Usuarios usr) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Connection con = getConexion();
+        Connection con = getConnection();
 
-        String sql = "SELECT id, usuario, password, nombre, idTipo FROM usuarios WHERE usuario = ? LIMIT 1";
+        String sql = "SELECT id, usuario, password, nombre, respuesta, idTipo FROM usuarios WHERE usuario = ? LIMIT 1";
 
         try {
             ps = con.prepareStatement(sql);
@@ -74,10 +74,10 @@ public class SqlUsuarios extends Conexion {
         }
     }
 
-    public int existeUsuario(String usuario) {
+    public int existeUsuario(String usuario) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Connection con = getConexion();
+        Connection con = getConnection();
 
         String sql = "SELECT count(id) FROM usuarios WHERE usuario = ?";
 

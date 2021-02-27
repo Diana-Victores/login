@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
 import java.awt.GridLayout;
@@ -14,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import modelo.Hash;
+import modelo.SqlUsuarios;
+import modelo.Usuarios;
 
 
 /**
@@ -24,7 +23,6 @@ public class Recuperacio extends javax.swing.JFrame {
 
     public static String resp="";
         public static String ced1="";
-        static Object frmReg;
         int x,y;
         static Connection con=null;
     /**
@@ -33,98 +31,101 @@ public class Recuperacio extends javax.swing.JFrame {
     public Recuperacio() {
         initComponents();
 //               setLocalRelativeTo(null);
-       txtusuario.requestFocus();
+       txtid.requestFocus();
     }
 
-      
+  //***************************************************************************************************************
+
+//CONFIRMAR USUARIO    
     
-//    void Confirmar_Usuario(){
-//           String ced_tra = txtusuario.getText();
-//        try{
-//            if ("".equals((ced_tra)))
-//            {
-//                    JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
-//                    txtusuario.requestFocus();
-//                    
-//                    
-//            }else{
-//
-//
-//                Connection cn= DriverManager.getConnection("jdbc:mysql://localhost/Usuarios","root","");              
-//                String sql= "SELECT * FROM usuarios WHERE usuario='" + txtusuario.getText() + "'";
-//                
-////               Statement st=con.createStatement();
-//
-//            PreparedStatement pst = cn.prepareStatement("select * from usuarios where usuario = ?");
-//            pst.setString(1, txtusuario.getText().trim());
-//
-//            ResultSet st = pst.executeQuery();
-//            
-//            
-//  
-//                //busca
-//             //  ResultSet rs = st.executeQuery(sql);
-//                String preg="";
-//                String cedu="";
-//                
-//                if (st.next()){
-//                    //busca
-//                    cedu=st.getString("usuario");
-//                    preg=st.getString("pregunta");
-//                    Recuperacio.resp= st.getString("respuesta");
-//                     
-//                   
-//                } else {
-//                    JOptionPane.showConfirmDialog(null, "Nombre de Usuario Incorrecto");
-//                    txtusuario.setText("");
-//                    txtusuario.requestFocus();
-//                }
-// //**********************************************************************************************************
-//                //CONFIGURACION DE PREGUNTA EN EL PANEL 
-////                Recuperacio.ced1=cedu;
-////               
-////                jpanel_pregun_pane.removeAll();
-////                jpanel_pregun_pane.updateUI();
-////                jpanel_pregun_pane.repaint();                
-////                this.validate(); 
-////                lblpregunta.setText(preg);
-////                jpanel_pregun_pane.setLayout(new GridLayout(1,1));
-////                jpanel_pregun_pane.add(lblpregunta);
-//                         
-//            }               
-//        }catch(SQLException | HeadlessException e){          
-//        } } 
-    
-    //***************************************************************************************************
+    void Confirmar_Usuario(){
+          
+        String ced_tra = txtid.getText();
        
-//    void Confirmar_Respuesta(){
+        try{
+            if ("".equals((ced_tra)))
+            {
+                    JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
+                    txtid.requestFocus();       
+            }else{
+                   // con =Connection.Conexion.Conexion;
+                    
+            Connection cn= DriverManager.getConnection("jdbc:mysql://localhost/Usuarios","root","");   
+//                String sql= "SELECT * FROM usuarios WHERE usuario='" + txtusuario.getText() + "'";
+////                                     Statement st=con.createStatement();
+            PreparedStatement pst = cn.prepareStatement("select * from usuarios where usuario = ?");
+            pst.setString(1, txtid.getText().trim());
+            ResultSet rs = pst.executeQuery();
+
+        //    PreparedStatement pst = cn.prepareStatement("select * from usuarios where usuario = ?");
+         //   pst.setString(1, txtusuario.getText().trim());
+
+  //          ResultSet rs = pst.executeQuery();
+
+              //busca
+             //  ResultSet rs = st.executeQuery(sql);
+                String preg="";
+                String cedu="";
+                
+                if (rs.next()){
+                    //busca
+                    cedu=rs.getString("usuario");
+                    preg=rs.getString("pregunta");
+                 //   Recuperacio.resp= rs.getString("respuesta");
+                     
+                   
+                } else {
+                    JOptionPane.showConfirmDialog(null, "Nombre de Usuario Incorrecto");
+                    txtid.setText("");
+                    txtid.requestFocus();
+                }
+ //**********************************************************************************************************
+                //CONFIGURACION DE PREGUNTA EN EL PANEL 
+//                Recuperacio.ced1=cedu;
+//                jpanel_pregun_pane.removeAll();
+//                jpanel_pregun_pane.updateUI();
+//                jpanel_pregun_pane.repaint();                
+//                this.validate(); 
+//                lblpregunta.setText(preg);
+//                jpanel_pregun_pane.setLayout(new GridLayout(1,1));
+//                jpanel_pregun_pane.add(lblpregunta);             
+            }}catch(SQLException | HeadlessException e){          
+        } } 
+    
+//    ***************************************************************************************************
+       
+    void Confirmar_Respuesta(){
 //        
-//        String  ced_trans = txtusuario.getText();
-//     //   String  pregunta = lblpregunta.getText();
-//        String  respuesta = txtRespuesta.getText();
-//        
-//        if(("".equals(ced_trans)) || ("".equals(respuesta))){
-//            
-//            JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
-//            txtRespuesta.requestFocus();
-//            
-//        } else {
-//            
-//            if(Recuperacio.resp.equals(txtRespuesta.getText()))
-//            {
-//                dispose();
-//                
-//                CambioClave camb=new CambioClave();
-//                camb.setVisible(true);
-//                
-//                
-//            }else{
+          
+        String  ced_trans = txtid.getText();
+    //    String  pregunta = lblpregunta.getText();
+        String  respuesta = txtRespuesta.getText();
+        
+        if(("".equals(ced_trans)) ||  ("".equals(respuesta)))
+        {
+            
+            JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
+            txtRespuesta.requestFocus();
+            
+        } else {
+            
+            if(Recuperacio.resp.equals(txtRespuesta.getText()))
+            {
+                
+                dispose();
+                
+                CambioClave camb=new CambioClave();
+                camb.setVisible(true);
+                
+                
+            }else{
 //                JOptionPane.showMessageDialog (null, "Respuesta Incorrecta");
 //                txtRespuesta.setText("");
 //                txtRespuesta.requestFocus();
-//                
-//            } 
-//        }}  
+                
+            } 
+        }
+    }  
         
 
     /**
@@ -140,14 +141,14 @@ public class Recuperacio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtusuario = new javax.swing.JTextField();
+        txtid = new javax.swing.JTextField();
         btnConfirmarUsuario = new javax.swing.JButton();
         btnConfirmarRespuesta = new javax.swing.JButton();
         jpanel_pregun_pane = new javax.swing.JPanel();
         lblpregunta = new javax.swing.JLabel();
         txtRespuesta = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -162,7 +163,7 @@ public class Recuperacio extends javax.swing.JFrame {
 
         jLabel4.setText("Pregunta de Seguridad");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
-        getContentPane().add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 210, -1));
+        getContentPane().add(txtid, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 210, -1));
 
         btnConfirmarUsuario.setText("Confirmar");
         btnConfirmarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -193,45 +194,97 @@ public class Recuperacio extends javax.swing.JFrame {
 
     private void btnConfirmarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarUsuarioActionPerformed
                 // TODO add your handling code here:
-     
-             //  Confirmar_Usuario();
+             
+//         String ced_tra = txtusuario.getText();
+//        try{
+//            if ("".equals((ced_tra)))
+//            {
+//                    JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
+//                    txtusuario.requestFocus();       
+//            }else{
+//
+//                Connection cn= DriverManager.getConnection("jdbc:mysql://localhost/Usuarios","root","");   
+////                String sql= "SELECT * FROM usuarios WHERE usuario='" + txtusuario.getText() + "'";
+//////                                     Statement st=con.createStatement();
+//            PreparedStatement pst = cn.prepareStatement("select * from usuarios where usaurio = ?");
+//            pst.setString(1, txtusuario.getText().trim());
+//            ResultSet rs = pst.executeQuery();
+//
+//        //    PreparedStatement pst = cn.prepareStatement("select * from usuarios where usuario = ?");
+//         //   pst.setString(1, txtusuario.getText().trim());
+//
+//  //          ResultSet rs = pst.executeQuery();
+//
+//              //busca
+//             //  ResultSet rs = st.executeQuery(sql);
+//                String preg="";
+//                String cedu="";
+//                
+//                if (rs.next()){
+//                    //busca
+//                   // cedu=rs.getString("usuario");
+//                   // preg=rs.getString("pregunta");
+//                    Recuperacio.resp = rs.getString("respuesta");
+//                     
+//                   
+//                } else {
+//                    JOptionPane.showConfirmDialog(null, "Nombre de Usuario Incorrecto");
+//                    txtusuario.setText("");
+//                    txtusuario.requestFocus();
+//                }
+ //**********************************************************************************************************
+                //CONFIGURACION DE PREGUNTA EN EL PANEL 
+//                Recuperacio.ced1=cedu;
+//               
+//                jpanel_pregun_pane.removeAll();
+//                jpanel_pregun_pane.updateUI();
+//                jpanel_pregun_pane.repaint();                
+//                this.validate(); 
+//                lblpregunta.setText(preg);
+//                jpanel_pregun_pane.setLayout(new GridLayout(1,1));
+//                jpanel_pregun_pane.add(lblpregunta);
+//                         
+//            }               
+//        }catch(SQLException | HeadlessException e){          
+//        } 
+//
+//        
+//        
+        //*******************************************************
         
-        try{
+
+               try{
             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/Usuarios", "root", "");
-            PreparedStatement pst = cn.prepareStatement("select * from usuarios where usuario = ?");
-            pst.setString(1, txtusuario.getText().trim());
+            PreparedStatement pst = cn.prepareStatement("select * from usuarios where id = ?");
+            pst.setString(1, txtid.getText().trim());
 
             ResultSet rs = pst.executeQuery();
 
             if(rs.next()){
                 txtRespuesta.setText(rs.getString("respuesta"));
                 
-
             } else {
-                JOptionPane.showMessageDialog(null, "Persona no registrada.");
+             JOptionPane.showMessageDialog(null, "Persona no registrada.");
             }
-
         }catch (Exception e){
-
-    }
-        
+    }          
     }//GEN-LAST:event_btnConfirmarUsuarioActionPerformed
 
     private void btnConfirmarRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarRespuestaActionPerformed
         // TODO add your handling code here:
-       //Confirmar_Respuesta();
+        //     Confirmar_Respuesta();
+
         CambioClave frmRecupera = new CambioClave();
                 frmRecupera.setVisible(true);
         
      
     }//GEN-LAST:event_btnConfirmarRespuestaActionPerformed
     
-    private void limpiar() {
-        txtusuario.setText("");
+   private void limpiar() {
+        txtid.setText("");
         txtRespuesta.setText("");
 
     }
-    
     /**
      * @param args the command line arguments
      */
@@ -278,7 +331,7 @@ public class Recuperacio extends javax.swing.JFrame {
     private javax.swing.JPanel jpanel_pregun_pane;
     private javax.swing.JLabel lblpregunta;
     private javax.swing.JPasswordField txtRespuesta;
-    private javax.swing.JTextField txtusuario;
+    private javax.swing.JTextField txtid;
     // End of variables declaration//GEN-END:variables
 
   

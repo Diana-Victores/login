@@ -5,6 +5,9 @@
  */
 package vista;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Hash;
 import javax.swing.JOptionPane;
 import modelo.SqlUsuarios;
@@ -48,6 +51,7 @@ public class registro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtRespuesta = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -93,45 +97,54 @@ public class registro extends javax.swing.JFrame {
         jLabel6.setText("Pregunta Seguridad");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Rspuesta");
+        jLabel7.setText("Respuesta");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("¿Que nombre tenia su primera mascota?");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("REGISTRARSE");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtUsuario)
-                        .addComponent(txtNombre)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(txtPassword)
-                        .addComponent(txtConfirmaPassword)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(38, 38, 38)
-                            .addComponent(btnRegistrar)))
-                    .addComponent(jLabel8)
-                    .addComponent(txtRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtUsuario)
+                                .addComponent(txtNombre)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(txtPassword)
+                                .addComponent(txtConfirmaPassword)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(38, 38, 38)
+                                    .addComponent(btnRegistrar)))
+                            .addComponent(jLabel8)
+                            .addComponent(txtRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(jLabel9)))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addComponent(jLabel9)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -161,7 +174,7 @@ public class registro extends javax.swing.JFrame {
                     .addComponent(txtRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnRegistrar)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -181,35 +194,39 @@ public class registro extends javax.swing.JFrame {
 
          if (pass.equals(passC)) {
 
-                if (modSql.existeUsuario(txtUsuario.getText()) == 0) {
-
-                    if (modSql.esEmail(txtEmail.getText())) {
-                        
-                     //   if (modSql.Seguridad (txtSeguridad.getText())){
-                            
-                            
-                            String nuevoPass = Hash.sha1(pass);
-                            
-                            mod.setUsuario(txtUsuario.getText());
-                            mod.setPassword(nuevoPass);
-                            mod.setNombre(txtNombre.getText());
-                            mod.setEmail(txtEmail.getText());
-                            mod.setRespuesta(txtRespuesta.getText());
-                            mod.setIdTipo(1);
-                            
-                            if (modSql.registrar(mod)) {
-                                JOptionPane.showMessageDialog(null, "Registro Guardado");
-                                limpiar();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Error al Guardar");
-                                limpiar();
-                            }
-                        } else {
-                            
-                        }
-                } else {
-                    JOptionPane.showMessageDialog(null, "El usuario ya existe");
-                }
+             try {
+                 if (modSql.existeUsuario(txtUsuario.getText()) == 0) {
+                     
+                     if (modSql.esEmail(txtEmail.getText())) {
+                         
+                         //   if (modSql.Seguridad (txtSeguridad.getText())){
+                         
+                         
+                         String nuevoPass = Hash.sha1(pass);
+                         
+                         mod.setUsuario(txtUsuario.getText());
+                         mod.setPassword(nuevoPass);
+                         mod.setNombre(txtNombre.getText());
+                         mod.setEmail(txtEmail.getText());
+                         mod.setRespuesta(txtRespuesta.getText());
+                         mod.setIdTipo(1);  //ACCESOS****************************************
+                         
+                         if (modSql.registrar(mod)) {
+                             JOptionPane.showMessageDialog(null, "Registro Guardado");
+                             limpiar();
+                         } else {
+                             JOptionPane.showMessageDialog(null, "Error al Guardar");
+                             limpiar();
+                         }
+                     } else {
+                         
+                     }
+                 } else {
+                     JOptionPane.showMessageDialog(null, "El usuario ya existe");
+                 }
+             } catch (SQLException ex) {
+                 Logger.getLogger(registro.class.getName()).log(Level.SEVERE, null, ex);
+             }
             } else {
                 JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
             }
@@ -274,6 +291,7 @@ public class registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     public javax.swing.JPasswordField txtConfirmaPassword;
     public javax.swing.JTextField txtEmail;
     public javax.swing.JTextField txtNombre;
